@@ -1,4 +1,4 @@
-module.exports = function(express, paths) {
+module.exports = function() {
   var defaultCallback =  function(req, res) {
     res.send("This is the default response.");
   }

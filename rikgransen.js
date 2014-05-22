@@ -1,7 +1,28 @@
 var express = require('express');
-
-/****************** Configuration ******************/
+var controller = require('./controller.js');
 var express = express();
+
+/****************** Site Structure / Routing ******************/
+
+// The site stucture is the web paths as described by json.
+// in the siteStructure example bellow. Url:s would be:
+// /home
+// /admin
+// /admin/site
+// /admin/user
+// Riksgränsen takes this site structure and traverse all
+// nodes and dynamicly adds 'c'reate, 'r'ead, 'u'pdate, 'd'elete
+// functions to each node according to restVerbs specified on a node.
+// The crud-functions wraps the correct Express.js routing methods after
+// building the correct route string (i.e '/admin/site/:id')
+//
+// The nodes in the site structure also gets a function url(optionalValue)
+// added on startup that allows reverse url building from a route, even if
+// the route is parameterized.
+// In the example '/admin/site/:id' admin.site.url('my-site') whould return
+// a url '/admin/site/my-site'. This is very useful in templates where you
+// no longer have to use strings as links. Any broken link will generate a
+// runtime error.
 
 var siteStructure = {
   home : { },
@@ -17,9 +38,9 @@ var siteStructure = {
   }
 }
 
-var controller = require('./controller.js')(express, siteStructure);
-
 var routing = require('./paths.js')(express, siteStructure);
+
+/****************** Configuration ******************/
 
 
 //******************************************************
