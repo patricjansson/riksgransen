@@ -37,4 +37,4 @@ Riksgränsen takes this site structure and traverse all nodes and dynamicly adds
 
 Reverse parameterized URL lookup
 ------------------------------
-The nodes in the site structure also gets a function url(optionalValue) added on startup that allows reverse url building from a route, even if the route is parameterized. In the example '/admin/site/:id' admin.site.url('my-site') whould return a url '/admin/site/my-site'. This is very useful in templates where you no longer have to use strings as links. Any broken link will generate a runtime error.
+The nodes in the site structure also gets a function `url(optionalValue)` added on startup that allows reverse url building from a route, even if the route is parameterized. In the example `/admin/site/:id`, `admin.site.url('my-site')` would resolve to url `/admin/site/my-site` (:id is only added if passed to url()). This is very useful in templates where you no longer have to use strings as links. Any broken link will generate a runtime error.
