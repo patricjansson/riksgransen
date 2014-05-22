@@ -35,6 +35,25 @@ Url:s would be:
 
 Riksgränsen takes this site structure and traverse all nodes and dynamicly adds `'c'reate`, `'r'ead`, `'u'pdate`, `'d'elete` functions to each node according to restVerbs specified on a node. The crud-functions wraps the correct Express.js routing methods after building the correct route string for each node (i.e '/admin/site/:id').
 
+Routing using the site structure
+--------------------------------
+
+Invoking the REST verbs as functions removs the job of passing strings, and methods to Express. Since Riksgränsen works with objects, each node handles and registers functions for it´s verbs.
+
+```javascript
+var routing = require('./paths.js')(express, siteStructure);
+
+// PUT on /admin/site/:id
+routing.admin.site.update(controller.idCallback)
+```
+
+In Express.js the code above would be.
+```javascript
+// PUT on /admin/site/:id
+express.put("/admin/site/:id", controller.idCallback)
+```
+
+
 Reverse parameterized URL lookup
 ------------------------------
 The nodes in the site structure also gets a function `url(optionalValue)` added on startup that allows reverse url building from a route, even if the route is parameterized. In the example `/admin/site/:id`, `admin.site.url('my-site')` would resolve to url `/admin/site/my-site` (:id is only added if passed to url()). This is very useful in templates where you no longer have to use strings as links. Any broken link will generate a runtime error.
