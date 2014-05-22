@@ -7,7 +7,8 @@ var express = express();
 //******************************************************
 
 var siteStructure = {
-  home : { },
+  home : {
+  },
   admin : {
     site : {
       restVerbs : 'crud',

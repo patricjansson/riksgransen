@@ -1,12 +1,12 @@
 /**
- * Traverse the passed paths json object representing the routes
+ * OLD .... 
+ *  Traverse the passed paths json object representing the routes
  * used in a Express application.
  *
  * Every node in the paths-json has the following properties added to it..
  * Properites:
  *  - name : The name of the current path (node) I.e: /api/name/
  *  - parent : The nodes parent node.
- *  - method : The method that the path allows, defaults to GET
  *
  * Functions:
  *  - route() : Gets the route to the path. I.e /api/name or /api/name/:id
@@ -112,28 +112,28 @@ module.exports = function(paths, express) {
   }
 
   var create = function(req, res, callback) {
-    console.log('Adding create route \'' + this.createRoute() + '\' [Method: POST].');
+    console.log(' POST   \'' + this.createRoute() + '\'');
     express.post(this.createRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var read = function(callback) {
-    console.log('Adding read route   \'' + this.readRoute() + '\' [Method: GET].');
+    console.log(' GET    \'' + this.readRoute() + '\'');
     express.get(this.readRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var update = function(req, res, callback) {
-    console.log('Adding update route  \'' + this.updateRoute() + '\' [Method: PUT].');
+    console.log(' PUT    \'' + this.updateRoute() + '\'' );
     express.put(this.updateRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var del = function(req, res, callback) {
-    console.log('Adding delete route \'' + this.deleteRoute() + '\' [Method: DELETE].');
+    console.log(' DELETE \'' + this.deleteRoute() + '\'');
     express.delete(this.deleteRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
