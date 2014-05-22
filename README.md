@@ -1,4 +1,4 @@
-Riksgränsen - Better Express Routing
+Riksgränsen - Better Express.js Routing
 ===========
 
 This will soon be a npm module, for now its just code taken from a other project not working as intended.
