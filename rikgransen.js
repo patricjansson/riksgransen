@@ -2,27 +2,9 @@ var express = require('express');
 var controller = require('./controller.js');
 var express = express();
 
-/****************** Site Structure / Routing ******************/
-
-// The site stucture is the web paths as described by json.
-// in the siteStructure example bellow. Url:s would be:
-// /home
-// /admin
-// /admin/site
-// /admin/user
-// Riksgränsen takes this site structure and traverse all
-// nodes and dynamicly adds 'c'reate, 'r'ead, 'u'pdate, 'd'elete
-// functions to each node according to restVerbs specified on a node.
-// The crud-functions wraps the correct Express.js routing methods after
-// building the correct route string (i.e '/admin/site/:id')
-//
-// The nodes in the site structure also gets a function url(optionalValue)
-// added on startup that allows reverse url building from a route, even if
-// the route is parameterized.
-// In the example '/admin/site/:id' admin.site.url('my-site') whould return
-// a url '/admin/site/my-site'. This is very useful in templates where you
-// no longer have to use strings as links. Any broken link will generate a
-// runtime error.
+//******************************************************
+// Setup Site Structure
+//******************************************************
 
 var siteStructure = {
   home : { },
@@ -39,8 +21,6 @@ var siteStructure = {
 }
 
 var routing = require('./paths.js')(express, siteStructure);
-
-/****************** Configuration ******************/
 
 
 //******************************************************
@@ -66,7 +46,7 @@ routing.admin.site.delete(controller.idCallback)
 
 // GET on /admin/user/:username
 routing.admin.user.read(controller.userCallback)
-// PUT on /admin/user
+// PUT on /admin/user In this case using a anonymous callback
 routing.admin.user.update(function(req, res){ res.send('Sorry, update not implemented yet.') })
 
 express.listen(3000, function() {
