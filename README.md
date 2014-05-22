@@ -43,14 +43,18 @@ Invoking the REST verbs as functions removs the job of passing strings, and meth
 ```javascript
 var routing = require('./paths.js')(express, siteStructure);
 
-// PUT on /admin/site/:id
-routing.admin.site.update(controller.idCallback)
+routing.admin.site.create(callback)
+routing.admin.site.read(callback)
+routing.admin.site.update(callback)
+routing.admin.site.delete(callback)
 ```
 
 In Express.js the code above would be.
 ```javascript
-// PUT on /admin/site/:id
-express.put("/admin/site/:id", controller.idCallback)
+express.post("/admin/site/", callback)
+express.get("/admin/site/:id", callback)
+express.put("/admin/site/", callback)
+express.delete("/admin/site/:id", callback)
 ```
 
 
