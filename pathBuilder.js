@@ -39,6 +39,10 @@ module.exports = function(paths, express) {
 
     var readPath = '/' + this.name;
 
+    if (this.param) {
+      readPath = '/' + this.name + '/:' + this.param;
+    }
+
     if (this.parent == null) {
       return readPath;
     }
@@ -108,28 +112,28 @@ module.exports = function(paths, express) {
   }
 
   var create = function(req, res, callback) {
-    console.log('Adding create route \'' + this.createRoute() + '\'.');
+    console.log('Adding create route \'' + this.createRoute() + '\' [Method: POST].');
     express.post(this.createRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var read = function(callback) {
-    console.log('Adding read route   \'' + this.readRoute() + '\'.');
+    console.log('Adding read route   \'' + this.readRoute() + '\' [Method: GET].');
     express.get(this.readRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var update = function(req, res, callback) {
-    console.log('Adding update route  \'' + this.updateRoute() + '\'.');
+    console.log('Adding update route  \'' + this.updateRoute() + '\' [Method: PUT].');
     express.put(this.updateRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var del = function(req, res, callback) {
-    console.log('Adding delete route \'' + this.deleteRoute() + '\'.');
+    console.log('Adding delete route \'' + this.deleteRoute() + '\' [Method: DELETE].');
     express.delete(this.deleteRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });

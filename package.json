@@ -1,0 +1,13 @@
+{
+  "name": "riksgransen",
+  "version": "0.0.1",
+  "description": "dds configurable RESTful routing in Express.js, and possibility to add resolve a route to a url.",
+  "author": "Patric Jansson twitter.com/patricjansson",
+  "main": "riksgransen.js",
+  "scripts": { },
+  "license": "Apache License Version 2.0",
+  "dependencies": {
+    "express": "~4.0.0",
+    "body-parser": "~1.0.2"
+    }
+}

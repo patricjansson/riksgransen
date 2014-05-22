@@ -18,32 +18,6 @@
  *    "param : 'id'" is set, the result whould be like /api/name/[value]
  */
 
-module.exports = function(express) {
-
-  var paths = {
-        admin : {
-          webform : {
-            restVerbs : 'crud',
-            param : 'id',
-            publish : {
-              restVerbs : 'u',
-              param : 'id'
-            },
-            unpublish : {
-              restVerbs : 'u',
-              param : 'id'
-            }
-          }
-        },
-        formloader : { },
-        webpage : {
-          param : 'id'
-        },
-        testwebpage : {
-          param : 'id'
-        }
-      }
-
+module.exports = function(express, paths) {
   return require('./pathBuilder')(paths, express)
-
 }
