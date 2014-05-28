@@ -104,4 +104,5 @@ express.delete("/admin/site/:id", callback)
 
 Reverse parameterized URL lookup
 ------------------------------
-The nodes in the site structure also gets a function `url(optionalValue)` added on startup that allows reverse url building from a route, even if the route is parameterized. In the example `/admin/site/:id`, `admin.site.url('my-site')` would resolve to url `/admin/site/my-site` (:id is only added if passed to url()). This is very useful in templates where you no longer have to use strings as links. Any broken link will generate a runtime error.
+Ever wanted to get a url from a template for a route? Just use the utitlity function
+`routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', '912834'])); -> /home/patricjansson/_groups/912834`
