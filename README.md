@@ -1,7 +1,7 @@
 Riksgränsen - Better Express.js Routing
 ===========
 
-Riksgränsen inverst routing in  Express.js and dynamically adds CRUD and REST support by defining routes as a JSON-object. To try it out have a look at [rikgransen.js source] (https://github.com/patricjansson/riksgransen/blob/master/rikgransen.js)
+Riksgränsen inverst routing in  Express.js and dynamically adds CRUD and RESTful support by defining routes as a JSON-object. To try it out have a look at [rikgransen.js source] (https://github.com/patricjansson/riksgransen/blob/master/rikgransen.js)
 
 The core structure JSON-object
 ------------------------------
