@@ -1,5 +1,5 @@
 /**
- * OLD .... 
+ * OLD ....
  *  Traverse the passed paths json object representing the routes
  * used in a Express application.
  *
@@ -112,28 +112,24 @@ module.exports = function(paths, express) {
   }
 
   var create = function(req, res, callback) {
-    console.log(' POST   \'' + this.createRoute() + '\'');
     express.post(this.createRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var read = function(callback) {
-    console.log(' GET    \'' + this.readRoute() + '\'');
     express.get(this.readRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var update = function(req, res, callback) {
-    console.log(' PUT    \'' + this.updateRoute() + '\'' );
     express.put(this.updateRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
   }
 
   var del = function(req, res, callback) {
-    console.log(' DELETE \'' + this.deleteRoute() + '\'');
     express.delete(this.deleteRoute(), function(req, res) {
       routeCallback(callback, req, res);
     });
@@ -143,45 +139,33 @@ module.exports = function(paths, express) {
    * Build the url to a path, with or without a value
    * replacing a optional param.
    */
-  var url = function(value) {
-
-    var urlPath = '/' + this.name;
-
-    if (this.param) {
-      if (value != null) {
-        urlPath = '/' + this.name + '/' + value;
-      } else {
-        urlPath = '/' + this.name;
+  var toUrl = function(route, values) {
+      for (var i = 0; i <= values.length; i++) {
+        route = route.replace(/(\/:\w+)/, '/' + values[i]);
       }
-    }
-
-    if (this.parent == null) {
-      return urlPath;
-    }
-
-    if (this.parent.url == null) {
-      return urlPath;
-    }
-
-    return this.parent.url() + urlPath;
-
+      return route;
   }
 
   function addRoutes(current) {
     if (current.restVerbs) {
       if (current.restVerbs.indexOf('c') > -1) {
+        console.log(' POST   \'' + current.createRoute() + '\'');
         current.create = create;
       }
       if (current.restVerbs.indexOf('r') > -1) {
+        console.log(' GET    \'' + current.readRoute() + '\'');
         current.read = read;
       }
       if (current.restVerbs.indexOf('u') > -1) {
+        console.log(' PUT    \'' + current.updateRoute() + '\'' );
         current.update = update;
       }
       if (current.restVerbs.indexOf('d') > -1) {
+        console.log(' DELETE \'' + current.deleteRoute() + '\'');
         current.delete = del;
       }
     } else {
+      console.log(' GET    \'' + current.readRoute() + '\'');
       current.read = read;
     }
 
@@ -195,10 +179,10 @@ module.exports = function(paths, express) {
    */
   function addProperties(current, parent, name) {
 
-    current.name = name;
+    if (current.name == null) {
+      current.name = name;
+    }
     current.parent = parent;
-    current.url = url;
-    current.toString = url;
 
     if (current.restVerbs) {
       if (current.restVerbs.indexOf('c') > -1) {
@@ -265,6 +249,8 @@ module.exports = function(paths, express) {
   buildPaths(paths);
 
   buildRoutes(paths);
+
+  paths.toUrl = toUrl;
 
   // Finally return the paths json with all properties set.
   return paths;

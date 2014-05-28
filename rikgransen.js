@@ -8,11 +8,16 @@ var express = express();
 
 var siteStructure = {
   home : {
+    param: 'username',
+    memberships : {
+      param : 'id',
+      name : '_groups'
+    }
   },
   admin : {
     site : {
       restVerbs : 'crud',
-      param : 'id',
+      param : 'id'
     },
     user : {
       restVerbs : 'ru',
@@ -22,7 +27,6 @@ var siteStructure = {
 }
 
 var routing = require('./paths.js')(express, siteStructure);
-
 
 //******************************************************
 // CRUD with RESTful routing
@@ -34,7 +38,7 @@ var routing = require('./paths.js')(express, siteStructure);
 // routes are not added to the server. If you try to access for example
 // routing.home.create(callback), you whould get a runtime error becaouse the create()
 // is not added to the object 'home.'
-routing.home.read(controller.defaultCallback)
+//routing.home.read(controller.defaultCallback)
 
 // POST on /admin/site
 routing.admin.site.create(controller.idCallback)
@@ -52,6 +56,7 @@ routing.admin.user.update(function(req, res){ res.send('Sorry, update not implem
 
 express.listen(3000, function() {
   console.log('------------------------------------------');
-  console.log('Start by pointing your brower to http://localhost:3000' + routing.admin.site.url('my-site-id') );
+  console.log('Start by pointing your brower to http://localhost:3000' +
+    routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', 'id']));
   console.log('------------------------------------------');
 });
