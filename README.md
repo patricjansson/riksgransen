@@ -37,7 +37,6 @@ var siteStructure = {
     memberships : {
       param : 'id',
       name : '_groups',
-      // dynamicly added
       readRoute : function(controller, req, res)
     }
   },
