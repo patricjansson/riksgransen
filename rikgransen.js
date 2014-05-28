@@ -57,6 +57,6 @@ routing.admin.user.update(function(req, res){ res.send('Sorry, update not implem
 express.listen(3000, function() {
   console.log('------------------------------------------');
   console.log('Start by pointing your brower to http://localhost:3000' +
-    routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', 'id']));
+    routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', '912834']));
   console.log('------------------------------------------');
 });
