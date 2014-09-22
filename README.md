@@ -104,3 +104,5 @@ Reverse parameterized URL lookup
 ------------------------------
 Ever wanted to get a url from a template for a route? Just use the utitlity function
 `routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', '912834'])); -> /home/patricjansson/_groups/912834`
+
+Enjoy Patric 
