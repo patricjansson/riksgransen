@@ -1,9 +1,7 @@
 Riksgränsen - Better Express.js Routing
 ===========
 
-This will soon be a npm module, for now its just code taken from a other project not working as intended.
-
-Riksgränsen inverst routing in  Express.js and dynamically adds CRUD and REST support by defining routes as a JSON-object.
+Riksgränsen inverst routing in  Express.js and dynamically adds CRUD and RESTful support by defining routes as a JSON-object. To try it out have a look at [rikgransen.js source] (https://github.com/patricjansson/riksgransen/blob/master/rikgransen.js)
 
 The core structure JSON-object
 ------------------------------
@@ -11,11 +9,17 @@ The site stucture is the web paths as described by json. In the siteStructure ex
 
 ```json
 var siteStructure = {
-  home : { },
+  home : {
+    param: 'username',
+    memberships : {
+      param : 'id',
+      name : '_groups'
+    }
+  },
   admin : {
     site : {
       restVerbs : 'crud',
-      param : 'id',
+      param : 'id'
     },
     user : {
       restVerbs : 'ru',
@@ -24,13 +28,51 @@ var siteStructure = {
   }
 }
 ```
+After adding routes
+```json
+var siteStructure = {
+  home : {
+    param: 'username',
+    readRoute : function(controller, req, res)
+    memberships : {
+      param : 'id',
+      name : '_groups',
+      readRoute : function(controller, req, res)
+    }
+  },
+  admin : {
+    readRoute : function(controller, req, res)                                         
+    site : {
+      restVerbs : 'crud',
+      param : 'id',
+      createRoute : function(controller, req, res)
+      readRoute : function(controller, req, res)
+      updateRoute : function(controller, req, res)
+      deleteRoute : function(controller, req, res)
+    },
+    user : {
+      restVerbs : 'ru',
+      param : 'username',
+      readRoute : function(controller, req, res)
+      updateRoute : function(controller, req, res)
+    }
+  }
+}
+```
+
 
 Url:s would be:
 ```html
-/home
-/admin
-/admin/site
-/admin/user
+ GET    '/home/:username'
+ GET    '/home/:username/_groups/:id'
+ GET    '/admin'
+ POST   '/site'
+ GET    '/admin/site/:id'
+ PUT    '/site'
+ DELETE '/site/:id'
+ GET    '/admin/user/:username'
+ PUT    '/user'
+
 ```
 
 Riksgränsen takes this site structure and traverse all nodes and dynamicly adds `'c'reate`, `'r'ead`, `'u'pdate`, `'d'elete` functions to each node according to restVerbs specified on a node. The crud-functions wraps the correct Express.js routing methods after building the correct route string for each node (i.e '/admin/site/:id').
@@ -60,4 +102,5 @@ express.delete("/admin/site/:id", callback)
 
 Reverse parameterized URL lookup
 ------------------------------
-The nodes in the site structure also gets a function `url(optionalValue)` added on startup that allows reverse url building from a route, even if the route is parameterized. In the example `/admin/site/:id`, `admin.site.url('my-site')` would resolve to url `/admin/site/my-site` (:id is only added if passed to url()). This is very useful in templates where you no longer have to use strings as links. Any broken link will generate a runtime error.
+Ever wanted to get a url from a template for a route? Just use the utitlity function
+`routing.toUrl(routing.home.memberships.readRoute(), ['patricjansson', '912834'])); -> /home/patricjansson/_groups/912834`
