@@ -7,7 +7,7 @@ The core structure JSON-object
 ------------------------------
 The site stucture is the web paths as described by json. In the siteStructure example bellow.
 
-```json
+```javascript
 var siteStructure = {
   home : {
     param: 'username',
@@ -29,7 +29,7 @@ var siteStructure = {
 }
 ```
 After adding routes
-```json
+```javascript
 var siteStructure = {
   home : {
     param: 'username',
